@@ -87,15 +87,11 @@ console.log(_map(obj1, x => x));
 // 커링(_curry)
 const _curry = function(fn) {
     return function(a) {
-        if (arguments.length == 2) { // 2개 인자 받을 경우에도 바로 돌도록 개선
-            return fn(a, arguments[1]); 
-        }
-
-        return function(b) {
-            return fn(a, b);
-        }
+        return arguments.length == 2 // 2개 인자 받을 경우에도 바로 돌도록 개선
+            ? fn(a, arguments[1])
+            : b => fn(a, b);
     }
-}
+};
 // as-is
 var add = (a, b) => a + b;
 console.log(add(3, 5));
