@@ -63,11 +63,7 @@ const _pipe = (...fnList) => {
         ? fnList[0]
         : fnList;
 
-    return function(acc) {
-        return _reduce(list, function(acc, fn) {
-            return fn(acc);
-        }, acc);
-    }
+    return acc => _reduce(list, (acc, fn) => fn(acc), acc)
 };
 
 module.exports = { _curry, _curryr, _get, _each, _filter, _map, _reduce, _pipe };
