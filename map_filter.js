@@ -119,3 +119,10 @@ const _curryr = function(fn) {
 var sub = _curryr((a, b) => a - b);
 var sub10 = sub(10); // 10을 빼기하는 함수
 console.log(sub10(5)); // 제대로 -5가 출력됨
+console.clear();
+
+// _get
+const _get = (obj, key) => obj ? obj[key] : undefined;
+var user1 = users[10];
+//console.log(user1.name); // 에러 발생, Cannot read property 'name' of undefined
+console.log(_get(user1, 'name'));
