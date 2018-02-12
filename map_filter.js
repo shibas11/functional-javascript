@@ -1,3 +1,5 @@
+const lib = require('./myLib');
+
 var users = [
     { id: 1, name: 'ID', age: 36 },
     { id: 2, name: 'BJ', age: 32 },
@@ -29,42 +31,13 @@ console.log(names);
 var ages = users.filter(x => x.age < 30).map(x => x.age); 
 console.log(ages);
 
-// _each 만들어 보기
-const _each = (list, iter) => {
-    for (let i = 0; i < list.length; i++) {
-        iter(list[i]);
-    }
-};
-
-// _filter, _map 만들어 보기
-const _filter = (list, predicate) => { // 고차함수: 함수를 인자로 받거나 함수를 리턴하거나 인자로 받은 함수를 실행하는 함수
-    const new_list = [];
-    
-    _each(list, x => {
-        if (predicate(x)) {
-            new_list.push(x);
-        }
-    });
-
-    return new_list;
-};
-const _map = (list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에 재사용성 높은 코드가 되었다.
-    const new_list = [];
-
-    _each(list, x => {
-        new_list.push(mapper(x));
-    });
-
-    return new_list;
-};
-
-var names = _map(
-    _filter(users, x => x.age >= 30),
+var names = lib._map(
+    lib._filter(users, x => x.age >= 30),
     x => x.name);
 console.log(names);
     
-var ages = _map(
-    _filter(users, x => x.age < 30),
+var ages = lib._map(
+    lib._filter(users, x => x.age < 30),
     x => x.age);
 console.log(ages);
 
@@ -82,51 +55,36 @@ var obj1 = {
     length: 4
 };
 //console.log(obj1.map(x => x)); // 에러 발생, obj1.map is not a function
-console.log(_map(obj1, x => x));
+console.log(lib._map(obj1, x => x));
 
-// 커링(_curry)
-const _curry = function(fn) {
-    return function(a) {
-        return arguments.length == 2 // 2개 인자 받을 경우에도 바로 돌도록 개선
-            ? fn(a, arguments[1])
-            : b => fn(a, b);
-    }
-};
-// as-is
+
+// 커링 as-is
 var add = (a, b) => a + b;
 console.log(add(3, 5));
-// to-be
-var addForCurry = _curry((a, b) => a + b);
+// 커링 to-be
+var addForCurry = lib._curry((a, b) => a + b);
 var add3 = addForCurry(3);
 console.log(add3(7));
 console.log(addForCurry(10)(5));
 console.log(addForCurry(1, 2)); // 3이 나오지 않고 함수가 리턴되는 문제가 있어 _curry 개선함
 console.clear();
 
-// 커링(_curryr), 오른쪽부터 평가하는 커링함수
-var sub = _curry((a, b) => a - b);
+// 커링r as-is
+var sub = lib._curry((a, b) => a - b);
 //console.log(sub(10, 5)); // 10 - 5 = 5
 var sub10 = sub(10); // 10을 빼기하는 함수
 console.log(sub10(5)); // 5 - 10 이 아니라 10 -5 ???? 이럴 때 오른쪽부터 평가하는 _curryr이 필요함
-
-const _curryr = function(fn) {
-    return function(a) {
-        return arguments.length == 2
-            ? fn(a, arguments[1])
-            : b => fn(b, a); // 여기만 순서가 바뀜
-    }
-};
-var sub = _curryr((a, b) => a - b);
+// 커링r to-be
+var sub = lib._curryr((a, b) => a - b);
 var sub10 = sub(10); // 10을 빼기하는 함수
 console.log(sub10(5)); // 제대로 -5가 출력됨
 console.clear();
 
-// _get
-const _get = _curryr((obj, key) => obj ? obj[key] : undefined);
+// get 예제
 var user1 = users[10];
 //console.log(user1.name); // 에러 발생, Cannot read property 'name' of undefined
-console.log(_get(user1, 'name'));
-console.log(_get(users[0], 'name'));
-console.log(_get('name')(users[0])); // _curryr 적용됐으므로 name 이 먼저다
-var _get_name = _get('name');
+console.log(lib._get(user1, 'name'));
+console.log(lib._get(users[0], 'name'));
+console.log(lib._get('name')(users[0])); // _curryr 적용됐으므로 name 이 먼저다
+var _get_name = lib._get('name');
 console.log(_get_name(users[0]));
