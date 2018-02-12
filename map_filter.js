@@ -83,3 +83,20 @@ var obj1 = {
 };
 //console.log(obj1.map(x => x)); // 에러 발생, obj1.map is not a function
 console.log(_map(obj1, x => x));
+
+// 커링(_curry)
+const _curry = function(fn) {
+    return function(a) {
+        return function(b) {
+            return fn(a, b);
+        }
+    }
+}
+// as-is
+var add = (a, b) => a + b;
+console.log(add(3, 5));
+// to-be
+var addForCurry = _curry((a, b) => a + b);
+var add3 = addForCurry(3);
+console.log(add3(7));
+console.log(addForCurry(10)(5));
