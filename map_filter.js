@@ -33,12 +33,12 @@ console.log(ages);
 
 var names = lib._map(
     lib._filter(users, x => x.age >= 30),
-    x => x.name);
+    lib._get('name'));
 console.log(names);
     
 var ages = lib._map(
     lib._filter(users, x => x.age < 30),
-    x => x.age);
+    lib._get('age'));
 console.log(ages);
 
 // 외부 다형성에 관한 이야기
