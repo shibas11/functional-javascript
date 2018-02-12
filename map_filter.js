@@ -111,3 +111,21 @@ var f2 = lib._pipe( // not array
     x => x * x
 );
 console.log(f2(1));
+
+// go 예제
+console.log('\n go 예제');
+lib._go(1,
+    [ // array
+        x => x + 1,
+        x => x * 2,
+        x => x * x,
+        console.log
+    ]
+);
+lib._go(1,
+    // not array
+    x => x + 1,
+    x => x * 2,
+    x => x * x,
+    console.log
+);

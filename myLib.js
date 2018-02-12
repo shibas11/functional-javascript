@@ -66,4 +66,17 @@ const _pipe = (...fnList) => {
     return acc => _reduce(list, (acc, fn) => fn(acc), acc)
 };
 
-module.exports = { _curry, _curryr, _get, _each, _filter, _map, _reduce, _pipe };
+// go 함수는 즉시 실행되는 pipe 함수
+const _go = (acc, ...fnList) => {
+    const list = fnList[0].constructor === Array.prototype.constructor
+        ? fnList[0]
+        : fnList;
+
+    return _pipe.apply(null, fnList)(acc);
+};
+
+module.exports = {
+    _curry, _curryr, _get,
+    _each,
+    _filter, _map,
+    _reduce, _pipe, _go };
