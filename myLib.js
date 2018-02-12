@@ -1,20 +1,15 @@
 // 커링(_curry)
-const _curry = function(fn) {
-    return function(a) {
-        return arguments.length == 2 // 2개 인자 받을 경우에도 바로 돌도록 개선
-            ? fn(a, arguments[1])
-            : b => fn(a, b);
-    }
-};
+const _curry = fn =>
+    (a, b) => b // 2개 인자 받을 경우에도 바로 돌도록 개선
+        ? fn(a, b)
+        : b => fn(a, b);
 
 // 커링(_curryr), 오른쪽부터 평가하는 커링함수
-const _curryr = function(fn) {
-    return function(a) {
-        return arguments.length == 2
-            ? fn(a, arguments[1])
-            : b => fn(b, a); // 여기만 순서가 바뀜
-    }
-};
+const _curryr = fn =>
+    (a, b) => b
+        ? fn(a, b)
+        : b => fn(b, a); // 여기만 순서가 바뀜
+
 
 // _get
 const _get = _curryr((obj, key) => obj ? obj[key] : undefined);
