@@ -14,15 +14,14 @@ var users = [
 
 // filter, map
 console.log('\n filter, map 예제');
-var names = lib._map(
-    lib._filter(users, x => x.age >= 30),
-    lib._get('name'));
-console.log(names);
-    
-var ages = lib._map(
-    lib._filter(users, x => x.age < 30),
-    lib._get('age'));
-console.log(ages);
+lib._go(users,
+    users => lib._filter(users, x => x.age >= 30),
+    users => lib._map(users, lib._get('name')),
+    console.log);
+lib._go(users,
+    users => lib._filter(users, x => x.age < 30),
+    users => lib._map(users, lib._get('age')),
+    console.log);
 
 
 // 커링 as-is
