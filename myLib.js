@@ -48,4 +48,24 @@ const _map = (list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에
     return new_list;
 };
 
-module.exports = { _curry, _curryr, _get, _each, _filter, _map };
+const _reduce = (list, iter, acc) => {
+    if (!list) return undefined;
+
+    if (!acc) {
+        acc = list[0];
+        list = list.slice(1);
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        acc = iter(acc, list[i]);
+    }
+    
+    return acc;
+};
+
+module.exports = { _curry, _curryr, _get, _each, _filter, _map, _reduce };
+
+console.log([1,2,3,4,5].reduce((acc, elm) => acc + elm));
+console.log([1,2,3,4,5].reduce((acc, elm) => acc + elm, 0));
+console.log(_reduce([1,2,3,4,5], (acc, elm) => acc + elm));
+console.log(_reduce([1,2,3,4,5], (acc, elm) => acc + elm, 0));
