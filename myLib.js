@@ -53,19 +53,12 @@ const _reduce = (list, iter, acc) => {
 
     if (!acc) {
         acc = list[0];
-        list = list.slice(1);
+        list = Array.prototype.slice.call(list, 1); // for Array-like object
     }
 
-    for (let i = 0; i < list.length; i++) {
-        acc = iter(acc, list[i]);
-    }
+    _each(list, x => acc = iter(acc, x));
     
     return acc;
 };
 
 module.exports = { _curry, _curryr, _get, _each, _filter, _map, _reduce };
-
-console.log([1,2,3,4,5].reduce((acc, elm) => acc + elm));
-console.log([1,2,3,4,5].reduce((acc, elm) => acc + elm, 0));
-console.log(_reduce([1,2,3,4,5], (acc, elm) => acc + elm));
-console.log(_reduce([1,2,3,4,5], (acc, elm) => acc + elm, 0));

@@ -88,3 +88,7 @@ console.log(lib._get(users[0], 'name'));
 console.log(lib._get('name')(users[0])); // _curryr 적용됐으므로 name 이 먼저다
 var _get_name = lib._get('name');
 console.log(_get_name(users[0]));
+
+// reduce 예제
+console.log(lib._reduce([1, 2, 3, 4], (acc, elm) => acc + elm));
+console.log(lib._reduce([1, 2, 3, 4], (acc, elm) => acc + elm, 0));
