@@ -96,3 +96,18 @@ console.log(_get_name(users[0]));
 console.log('\n reduce 예제');
 console.log(lib._reduce([1, 2, 3, 4], (acc, elm) => acc + elm));
 console.log(lib._reduce([1, 2, 3, 4], (acc, elm) => acc + elm, 0));
+
+// pipe 예제
+console.log('\n pipe 예제');
+var f1 = lib._pipe([ // array
+    x => x + 1,
+    x => x * 2,
+    x => x * x
+]);
+console.log(f1(1));
+var f2 = lib._pipe( // not array
+    x => x + 1,
+    x => x * 2,
+    x => x * x
+);
+console.log(f2(1));

@@ -56,4 +56,18 @@ const _reduce = (list, iter, acc) => {
     return acc;
 };
 
-module.exports = { _curry, _curryr, _get, _each, _filter, _map, _reduce };
+// pipe 를 더 추상화하면 reduce 가 됨.
+// pipe 는 함수들을 받도록 특화된 버전
+const _pipe = (...fnList) => {
+    const list = fnList[0].constructor === Array.prototype.constructor
+        ? fnList[0]
+        : fnList;
+
+    return function(acc) {
+        return _reduce(list, function(acc, fn) {
+            return fn(acc);
+        }, acc);
+    }
+};
+
+module.exports = { _curry, _curryr, _get, _each, _filter, _map, _reduce, _pipe };
