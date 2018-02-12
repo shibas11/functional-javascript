@@ -11,6 +11,7 @@ var users = [
     { id: 8, name: 'MP', age: 23 },
 ];
 
+console.log('\n filter, map 예제');
 // 30세 이상인 users 만 고르기
 // 30세 이상인 users 의 name 을 수집하기
 var temp_users = [];
@@ -41,6 +42,7 @@ var ages = lib._map(
     lib._get('age'));
 console.log(ages);
 
+console.log('\n 다형성 예제');
 // 외부 다형성에 관한 이야기
 //      Array 의 함수를 쓴다는 것은 함수가 먼저가 아니라 자료의 인스턴스가 먼저다.
 //      만약, Array 로 들어올 인자가 null 이거나 한다면 오류가 발생할 것이다.
@@ -59,6 +61,7 @@ console.log(lib._map(obj1, x => x));
 
 
 // 커링 as-is
+console.log('\n 커링 예제');
 var add = (a, b) => a + b;
 console.log(add(3, 5));
 // 커링 to-be
@@ -67,9 +70,9 @@ var add3 = addForCurry(3);
 console.log(add3(7));
 console.log(addForCurry(10)(5));
 console.log(addForCurry(1, 2)); // 3이 나오지 않고 함수가 리턴되는 문제가 있어 _curry 개선함
-console.clear();
 
 // 커링r as-is
+console.log('\n 커링r 예제');
 var sub = lib._curry((a, b) => a - b);
 //console.log(sub(10, 5)); // 10 - 5 = 5
 var sub10 = sub(10); // 10을 빼기하는 함수
@@ -78,9 +81,9 @@ console.log(sub10(5)); // 5 - 10 이 아니라 10 -5 ???? 이럴 때 오른쪽�
 var sub = lib._curryr((a, b) => a - b);
 var sub10 = sub(10); // 10을 빼기하는 함수
 console.log(sub10(5)); // 제대로 -5가 출력됨
-console.clear();
 
 // get 예제
+console.log('\n get 예제');
 var user1 = users[10];
 //console.log(user1.name); // 에러 발생, Cannot read property 'name' of undefined
 console.log(lib._get(user1, 'name'));
@@ -90,5 +93,6 @@ var _get_name = lib._get('name');
 console.log(_get_name(users[0]));
 
 // reduce 예제
+console.log('\n reduce 예제');
 console.log(lib._reduce([1, 2, 3, 4], (acc, elm) => acc + elm));
 console.log(lib._reduce([1, 2, 3, 4], (acc, elm) => acc + elm, 0));
