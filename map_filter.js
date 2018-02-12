@@ -122,7 +122,11 @@ console.log(sub10(5)); // 제대로 -5가 출력됨
 console.clear();
 
 // _get
-const _get = (obj, key) => obj ? obj[key] : undefined;
+const _get = _curryr((obj, key) => obj ? obj[key] : undefined);
 var user1 = users[10];
 //console.log(user1.name); // 에러 발생, Cannot read property 'name' of undefined
 console.log(_get(user1, 'name'));
+console.log(_get(users[0], 'name'));
+console.log(_get('name')(users[0])); // _curryr 적용됐으므로 name 이 먼저다
+var _get_name = _get('name');
+console.log(_get_name(users[0]));
