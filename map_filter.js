@@ -101,3 +101,21 @@ var add3 = addForCurry(3);
 console.log(add3(7));
 console.log(addForCurry(10)(5));
 console.log(addForCurry(1, 2)); // 3이 나오지 않고 함수가 리턴되는 문제가 있어 _curry 개선함
+console.clear();
+
+// 커링(_curryr), 오른쪽부터 평가하는 커링함수
+var sub = _curry((a, b) => a - b);
+//console.log(sub(10, 5)); // 10 - 5 = 5
+var sub10 = sub(10); // 10을 빼기하는 함수
+console.log(sub10(5)); // 5 - 10 이 아니라 10 -5 ???? 이럴 때 오른쪽부터 평가하는 _curryr이 필요함
+
+const _curryr = function(fn) {
+    return function(a) {
+        return arguments.length == 2
+            ? fn(a, arguments[1])
+            : b => fn(b, a); // 여기만 순서가 바뀜
+    }
+};
+var sub = _curryr((a, b) => a - b);
+var sub10 = sub(10); // 10을 빼기하는 함수
+console.log(sub10(5)); // 제대로 -5가 출력됨
