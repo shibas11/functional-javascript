@@ -75,8 +75,12 @@ const _go = (acc, ...fnList) => {
     return _pipe.apply(null, fnList)(acc);
 };
 
+const _filterr = _curryr(_filter);
+const _mapr = _curryr(_map);
+
 module.exports = {
     _curry, _curryr, _get,
     _each,
     _filter, _map,
+    _filterr, _mapr,
     _reduce, _pipe, _go };

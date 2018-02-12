@@ -15,12 +15,12 @@ var users = [
 // filter, map
 console.log('\n filter, map 예제');
 lib._go(users,
-    users => lib._filter(users, x => x.age >= 30),
-    users => lib._map(users, lib._get('name')),
+    lib._filterr(x => x.age >= 30),
+    lib._mapr(lib._get('name')),
     console.log);
 lib._go(users,
-    users => lib._filter(users, x => x.age < 30),
-    users => lib._map(users, lib._get('age')),
+    lib._filterr(x => x.age < 30),
+    lib._mapr(lib._get('age')),
     console.log);
 
 
