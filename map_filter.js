@@ -87,6 +87,10 @@ console.log(_map(obj1, x => x));
 // 커링(_curry)
 const _curry = function(fn) {
     return function(a) {
+        if (arguments.length == 2) { // 2개 인자 받을 경우에도 바로 돌도록 개선
+            return fn(a, arguments[1]); 
+        }
+
         return function(b) {
             return fn(a, b);
         }
@@ -100,3 +104,4 @@ var addForCurry = _curry((a, b) => a + b);
 var add3 = addForCurry(3);
 console.log(add3(7));
 console.log(addForCurry(10)(5));
+console.log(addForCurry(1, 2)); // 3이 나오지 않고 함수가 리턴되는 문제가 있어 _curry 개선함
