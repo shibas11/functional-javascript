@@ -25,29 +25,35 @@ console.log(names);
 
 // 30세 미만인 users 만 고르기
 // 30세 미만인 users 의 age 를 수집하기
-//Array.prototype.filter, Array.prototype.map
-var ages = users.filter(x => x.age < 30).map(x => x.age);
+// Array.prototype.filter, Array.prototype.map
+var ages = users.filter(x => x.age < 30).map(x => x.age); 
 console.log(ages);
 
+// _each 만들어 보기
+const _each = (list, iter) => {
+    for (let i = 0; i < list.length; i++) {
+        iter(list[i]);
+    }
+};
 
 // _filter, _map 만들어 보기
 const _filter = (list, predicate) => { // 고차함수: 함수를 인자로 받거나 함수를 리턴하거나 인자로 받은 함수를 실행하는 함수
     const new_list = [];
     
-    for (let i = 0; i < list.length; i++) {
-        if (predicate(list[i])) {
-            new_list.push(list[i]);
+    _each(list, x => {
+        if (predicate(x)) {
+            new_list.push(x);
         }
-    }
+    });
 
     return new_list;
 };
 const _map = (list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에 재사용성 높은 코드가 되었다.
     const new_list = [];
 
-    for (let i = 0; i < list.length; i++) {
-        new_list.push(mapper(list[i]));
-    }
+    _each(list, x => {
+        new_list.push(mapper(x));
+    });
 
     return new_list;
 };
