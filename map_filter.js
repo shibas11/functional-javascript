@@ -67,3 +67,19 @@ var ages = _map(
     _filter(users, x => x.age < 30),
     x => x.age);
 console.log(ages);
+
+// 외부 다형성에 관한 이야기
+//      Array 의 함수를 쓴다는 것은 함수가 먼저가 아니라 자료의 인스턴스가 먼저다.
+//      만약, Array 로 들어올 인자가 null 이거나 한다면 오류가 발생할 것이다.
+//      Array-like 객체(주로 jQuery 객체)를 Array 라고 생각하고 메소드(멤버 함수)를 돌리면 에러가 날 수 있다.
+//      객체같은 경우는 객체(자료)가 먼저 있어야 인스턴스에 대해 메소드(멤버 함수)를 돌릴 수 있지만
+//      함수형 프로그래밍은 함수가 먼저가 되어야 한다. 순수 함수를 사용하자.
+var obj1 = {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    length: 4
+};
+//console.log(obj1.map(x => x)); // 에러 발생, obj1.map is not a function
+console.log(_map(obj1, x => x));
