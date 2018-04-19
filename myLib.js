@@ -14,17 +14,19 @@ const _curryr = fn =>
 // _get
 const _get = _curryr((obj, key) => obj == null ? undefined : obj[key]);
 
+const _length = _get('length');
+
 // _each 만들어 보기
 const _each = (list, iter) => {
-    for (let i = 0; i < list.length; i++) {
+    for (let i = 0, len = _length(list); i < len; i++) {
         iter(list[i]);
     }
 };
 
 // _filter, _map 만들어 보기
-const _filter = (list, predicate) => { // 고차함수: 함수를 인자로 받거나 함수를 리턴하거나 인자로 받은 함수를 실행하는 함수
+const _filter = _curryr((list, predicate) => { // 고차함수: 함수를 인자로 받거나 함수를 리턴하거나 인자로 받은 함수를 실행하는 함수
     const new_list = [];
-    
+
     _each(list, x => {
         if (predicate(x)) {
             new_list.push(x);
@@ -32,8 +34,8 @@ const _filter = (list, predicate) => { // 고차함수: 함수를 인자로 받�
     });
 
     return new_list;
-};
-const _map = (list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에 재사용성 높은 코드가 되었다.
+});
+const _map = _curryr((list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에 재사용성 높은 코드가 되었다.
     const new_list = [];
 
     _each(list, x => {
@@ -41,7 +43,7 @@ const _map = (list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에
     });
 
     return new_list;
-};
+});
 
 const _reduce = (list, iter, acc) => {
     if (!list) return undefined;
@@ -52,7 +54,7 @@ const _reduce = (list, iter, acc) => {
     }
 
     _each(list, x => acc = iter(acc, x));
-    
+
     return acc;
 };
 
@@ -75,12 +77,10 @@ const _go = (acc, ...fnList) => {
     return _pipe.apply(null, fnList)(acc);
 };
 
-const _filterr = _curryr(_filter);
-const _mapr = _curryr(_map);
-
 module.exports = {
-    _curry, _curryr, _get,
+    _curry, _curryr,
+    _get, _length,
     _each,
     _filter, _map,
-    _filterr, _mapr,
-    _reduce, _pipe, _go };
+    _reduce, _pipe, _go
+};
