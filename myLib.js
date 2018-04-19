@@ -12,7 +12,7 @@ const _curryr = fn =>
 
 
 // _get
-const _get = _curryr((obj, key) => obj ? obj[key] : undefined);
+const _get = _curryr((obj, key) => obj == null ? undefined : obj[key]);
 
 // _each 만들어 보기
 const _each = (list, iter) => {
