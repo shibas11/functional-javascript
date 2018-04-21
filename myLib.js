@@ -4,12 +4,12 @@ const _curry = fn =>
         ? fn(a, b)
         : b => fn(a, b);
 
+
 // 커링(_curryr), 오른쪽부터 평가하는 커링함수
 const _curryr = fn =>
     (a, b) => b
         ? fn(a, b)
         : b => fn(b, a); // 여기만 순서가 바뀜
-
 
 // _get
 const _get = _curryr((obj, key) => obj == null ? undefined : obj[key]);
@@ -21,8 +21,9 @@ const _keys = obj => _is_object(obj) ? Object.keys(obj) : [];
 
 // _each 만들어 보기
 const _each = (list, iter) => {
-    for (let i = 0, len = _length(list); i < len; i++) {
-        iter(list[i]);
+    const keys = _keys(list);
+    for (let i = 0; i < keys.length; i++) {
+        iter(list[keys[i]]);
     }
 };
 
