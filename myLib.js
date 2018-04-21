@@ -144,15 +144,29 @@ var _every = function (list, predicate) {
 
 var _min = function (list) {
     return _reduce(list, function (a, b) {
-        return a <= b ? a : b;
+        return a < b ? a : b;
     });
 };
 
 var _max = function (list) {
     return _reduce(list, function (a, b) {
-        return a >= b ? a : b;
+        return a > b ? a : b;
     });
 };
+
+function _min_by(list, iter) {
+    return _reduce(list, function (a, b) {
+        return iter(a) < iter(b) ? a : b;
+    });
+}
+var _min_by = _curryr(_min_by);
+
+function _max_by(list, iter) {
+    return _reduce(list, function (a, b) {
+        return iter(a) > iter(b) ? a : b;
+    });
+}
+var _max_by = _curryr(_max_by);
 
 module.exports = {
     _curry, _curryr,
@@ -173,5 +187,8 @@ module.exports = {
     _find, _find_index, _some, _every,
 
     // 축약하기
-    _reduce, _max, _min
+    _reduce, _max, _min, _max_by, _min_by
 };
+
+console.log(_min_by([1, 2, 4, 10, 5, -4], Math.abs));
+console.log(_max_by([1, 2, 4, 10, 5, -40], Math.abs));
