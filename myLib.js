@@ -24,7 +24,9 @@ var _curryr = fn =>
         b => fn(b, a); // 여기만 순서가 바뀜
 
 // _get
-var _get = _curryr((obj, key) => obj == null ? undefined : obj[key]);
+function _get(obj, key) {
+    return obj == null ? undefined : obj[key];
+}
 
 var _length = _get('length');
 
@@ -168,6 +170,15 @@ function _max_by(list, iter) {
 }
 var _max_by = _curryr(_max_by);
 
+function _group_by(data, iter) {
+    return _reduce(data, function (grouped, obj) {
+        var key = iter(obj);
+        (grouped[key] = grouped[key] || []).push(obj);
+        return grouped;
+    }, {});
+}
+var _group_by = _curryr(_group_by);
+
 module.exports = {
     _curry, _curryr,
     _get, _length,
@@ -187,8 +198,5 @@ module.exports = {
     _find, _find_index, _some, _every,
 
     // 축약하기
-    _reduce, _max, _min, _max_by, _min_by
+    _reduce, _max, _min, _max_by, _min_by, _group_by
 };
-
-console.log(_min_by([1, 2, 4, 10, 5, -4], Math.abs));
-console.log(_max_by([1, 2, 4, 10, 5, -40], Math.abs));
