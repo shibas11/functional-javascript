@@ -130,6 +130,18 @@ var _find_index = function (list, predicate) {
 };
 _find_index = _curryr(_find_index);
 
+var _some = function (list, predicate) {
+    //return _find_index(list, predicate || _identity) != -1; // undefined가 true로 나오는 문제가 있음
+
+    var result = _find_index(list, predicate || _identity);
+    return result != undefined && result != -1;
+};
+
+var _every = function (list, predicate) {
+    var result = _find_index(list, _negate(predicate || _identity));
+    return !(result != undefined && result != -1);
+};
+
 module.exports = {
     _curry, _curryr,
     _get, _length,
@@ -138,6 +150,6 @@ module.exports = {
     _map, _rest, _keys, _values, _pluck,
     _negate,
     _filter, _reject, _compact,
-    _find, _find_index,
+    _find, _find_index, _some, _every,
     _reduce, _pipe, _go
 };
