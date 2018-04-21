@@ -33,12 +33,12 @@ const _keys = obj => _is_object(obj) ? Object.keys(obj) : [];
 const _values = obj => _map(obj, val => val);
 
 // _each 만들어 보기
-const _each = (list, iter) => {
+const _each = _curryr((list, iter) => {
     const keys = _keys(list);
     for (let i = 0; i < keys.length; i++) {
         iter(list[keys[i]]);
     }
-};
+});
 
 // _filter, _map 만들어 보기
 const _filter = _curryr((list, predicate) => { // 고차함수: 함수를 인자로 받거나 함수를 리턴하거나 인자로 받은 함수를 실행하는 함수
@@ -98,7 +98,7 @@ module.exports = {
     _curry, _curryr,
     _get, _length,
     _each,
-    _is_object, _keys,
+    _is_object, _keys, _values,
     _filter, _map,
     _reduce, _pipe, _go
 };
