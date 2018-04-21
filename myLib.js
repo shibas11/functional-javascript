@@ -4,6 +4,18 @@ const _curry = fn =>
         ? fn(a, b)
         : b => fn(a, b);
 
+const _curry1 = fn =>
+    (a, b) => arguments.length == 2 // curry1은 제대로 동작 안 함!
+        ? fn(a, b)                  // arrow function을 쓰면 arguments가
+        : b => fn(a, b);            // 정상적으로 동작하지 않음.
+
+const _curry2 = function (fn) {      // 이렇게 구현하면 OK
+    return function (a, b) {
+        return arguments.length == 2
+            ? fn(a, b)
+            : b => fn(a, b);    // 여기는 arrow function을 썼지만
+    };                          // arguments를 사용하지 않는다
+};
 
 // 커링(_curryr), 오른쪽부터 평가하는 커링함수
 const _curryr = fn =>
