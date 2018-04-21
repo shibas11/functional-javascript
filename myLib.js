@@ -147,9 +147,19 @@ module.exports = {
     _get, _length,
     _each,
     _is_object, _identity,
-    _map, _rest, _keys, _values, _pluck,
+    _rest, _keys,
     _negate,
+    _pipe, _go,
+
+    // 수집하기
+    _map, _values, _pluck,
+
+    // 거르기
     _filter, _reject, _compact,
+
+    // 찾기
     _find, _find_index, _some, _every,
-    _reduce, _pipe, _go
+
+    // 축약하기
+    _reduce,
 };
