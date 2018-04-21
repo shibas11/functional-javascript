@@ -34,15 +34,16 @@ var _identity = val => val;
 var _values = obj => _map(obj, _identity);
 
 // _each 만들어 보기
-var _each = _curryr((list, iter) => {
+var _each = (list, iter) => {
     var keys = _keys(list);
     for (let i = 0; i < keys.length; i++) {
         iter(list[keys[i]]);
     }
-});
+};
+_each = _curryr(_each);
 
 // _filter, _map 만들어 보기
-var _filter = _curryr((list, predicate) => { // 고차함수: 함수를 인자로 받거나 함수를 리턴하거나 인자로 받은 함수를 실행하는 함수
+var _filter = (list, predicate) => { // 고차함수: 함수를 인자로 받거나 함수를 리턴하거나 인자로 받은 함수를 실행하는 함수
     var new_list = [];
 
     _each(list, x => {
@@ -52,8 +53,10 @@ var _filter = _curryr((list, predicate) => { // 고차함수: 함수를 인자�
     });
 
     return new_list;
-});
-var _map = _curryr((list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에 재사용성 높은 코드가 되었다.
+};
+_filter = _curryr(_filter);
+
+var _map = (list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에 재사용성 높은 코드가 되었다.
     var new_list = [];
 
     _each(list, x => {
@@ -61,7 +64,8 @@ var _map = _curryr((list, mapper) => { // mapper 을 갈아끼울 수 있기 때
     });
 
     return new_list;
-});
+};
+_map = _curryr(_map);
 
 var _rest = (list, num) => Array.prototype.slice.call(list, num || 1);
 var _reduce = (list, iter, acc) => {
