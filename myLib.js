@@ -30,6 +30,7 @@ const _length = _get('length');
 
 const _is_object = obj => !!obj && typeof obj == 'object';
 const _keys = obj => _is_object(obj) ? Object.keys(obj) : [];
+const _values = obj => _map(obj, val => val);
 
 // _each 만들어 보기
 const _each = (list, iter) => {
