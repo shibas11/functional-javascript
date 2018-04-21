@@ -100,11 +100,23 @@ var _pluck = function (list, key) {
         _map(x => x[key]));
 };
 
+var _negate = function (fn) {
+    return function (val) {
+        return !fn(val);
+    };
+};
+var _reject = function (list, predicate) {
+    return _filter(list, _negate(predicate));
+};
+_reject = _curryr(_reject);
+
 module.exports = {
     _curry, _curryr,
     _get, _length,
     _each,
     _is_object, _identity,
-    _filter, _map, _rest, _keys, _values, _pluck,
+    _map, _rest, _keys, _values, _pluck,
+    _negate,
+    _filter, _reject,
     _reduce, _pipe, _go
 };
