@@ -105,10 +105,13 @@ var _negate = function (fn) {
         return !fn(val);
     };
 };
+
 var _reject = function (list, predicate) {
     return _filter(list, _negate(predicate));
 };
 _reject = _curryr(_reject);
+
+var _compact = _filter(_identity);
 
 module.exports = {
     _curry, _curryr,
@@ -117,6 +120,6 @@ module.exports = {
     _is_object, _identity,
     _map, _rest, _keys, _values, _pluck,
     _negate,
-    _filter, _reject,
+    _filter, _reject, _compact,
     _reduce, _pipe, _go
 };
