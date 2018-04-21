@@ -63,12 +63,11 @@ const _map = _curryr((list, mapper) => { // mapper 을 갈아끼울 수 있기 �
     return new_list;
 });
 
+const _rest = (list, num) => Array.prototype.slice.call(list, num || 1);
 const _reduce = (list, iter, acc) => {
-    if (!list) return undefined;
-
     if (!acc) {
         acc = list[0];
-        list = Array.prototype.slice.call(list, 1); // for Array-like object
+        list = _rest(list);
     }
 
     _each(list, x => acc = iter(acc, x));
@@ -83,7 +82,7 @@ const _pipe = (...fnList) => {
         ? fnList[0]
         : fnList;
 
-    return acc => _reduce(list, (acc, fn) => fn(acc), acc)
+    return acc => _reduce(list, (acc, fn) => fn(acc), acc);
 };
 
 // go 함수는 즉시 실행되는 pipe 함수
