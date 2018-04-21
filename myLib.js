@@ -113,6 +113,23 @@ _reject = _curryr(_reject);
 
 var _compact = _filter(_identity);
 
+var _find = function (list, predicate) {
+    var keys = _keys(list);
+    for (var i = 0; i < keys.length; i++) {
+        var val = list[keys[i]];
+        if (predicate(val)) return val;
+    }
+};
+_find = _curryr(_find);
+
+var _find_index = function (list, predicate) {
+    var keys = _keys(list);
+    for (var i = 0; i < keys.length; i++) {
+        if (predicate(list[keys[i]])) return i;
+    }
+};
+_find_index = _curryr(_find_index);
+
 module.exports = {
     _curry, _curryr,
     _get, _length,
@@ -121,5 +138,6 @@ module.exports = {
     _map, _rest, _keys, _values, _pluck,
     _negate,
     _filter, _reject, _compact,
+    _find, _find_index,
     _reduce, _pipe, _go
 };
