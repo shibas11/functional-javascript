@@ -68,8 +68,8 @@ var _map = (list, mapper) => { // mapper 을 갈아끼울 수 있기 때문에 �
 _map = _curryr(_map);
 
 var _rest = (list, num) => Array.prototype.slice.call(list, num || 1);
-var _reduce = (list, iter, acc) => {
-    if (!acc) {
+var _reduce = function (list, iter, acc) {
+    if (arguments.length == 2) {
         acc = list[0];
         list = _rest(list);
     }
@@ -142,6 +142,18 @@ var _every = function (list, predicate) {
     return !(result != undefined && result != -1);
 };
 
+var _min = function (list) {
+    return _reduce(list, function (a, b) {
+        return a <= b ? a : b;
+    });
+};
+
+var _max = function (list) {
+    return _reduce(list, function (a, b) {
+        return a >= b ? a : b;
+    });
+};
+
 module.exports = {
     _curry, _curryr,
     _get, _length,
@@ -161,5 +173,5 @@ module.exports = {
     _find, _find_index, _some, _every,
 
     // 축약하기
-    _reduce,
+    _reduce, _max, _min
 };
