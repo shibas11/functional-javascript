@@ -30,7 +30,8 @@ const _length = _get('length');
 
 const _is_object = obj => !!obj && typeof obj == 'object';
 const _keys = obj => _is_object(obj) ? Object.keys(obj) : [];
-const _values = obj => _map(obj, val => val);
+const _identity = val => val;
+const _values = obj => _map(obj, _identity);
 
 // _each 만들어 보기
 const _each = _curryr((list, iter) => {
@@ -98,7 +99,7 @@ module.exports = {
     _curry, _curryr,
     _get, _length,
     _each,
-    _is_object, _keys, _values,
+    _is_object, _keys, _values, _rest, _identity,
     _filter, _map,
     _reduce, _pipe, _go
 };
