@@ -1,6 +1,6 @@
 // 커링(_curry)
 var _curry = fn =>
-    (a, b) => b ? // 2개 인자 받을 경우에도 바로 돌도록 개선
+    (a, b) => b ?                       // 2개 인자 받을 경우에도 바로 돌도록 개선
         fn(a, b) :
         b => fn(a, b);
 
@@ -94,11 +94,17 @@ var _go = (acc, ...fnList) => {
     return _pipe.apply(null, fnList)(acc);
 };
 
+var _pluck = function (list, key) {
+    return _go(list,
+        _filter(x => _get(x, key)),
+        _map(x => x[key]));
+};
+
 module.exports = {
     _curry, _curryr,
     _get, _length,
     _each,
-    _is_object, _keys, _values, _rest, _identity,
-    _filter, _map,
+    _is_object, _identity,
+    _filter, _map, _rest, _keys, _values, _pluck,
     _reduce, _pipe, _go
 };
