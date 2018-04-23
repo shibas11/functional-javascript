@@ -183,6 +183,18 @@ function _group_by(data, iter) {
 }
 var _group_by = _curryr(_group_by);
 
+function _count_by(data, iter) {
+    return _reduce(data, function(count, obj) {
+        return _inc(count, iter(obj));
+    }, {});
+}
+var _count_by = _curryr(_count_by);
+
+var _inc = function (count, key) {
+    count[key] = count[key] ? count[key] + 1 : 1;
+    return count;
+}
+
 module.exports = {
     _curry, _curryr,
     _get, _length,
@@ -201,6 +213,6 @@ module.exports = {
     // 찾기
     _find, _find_index, _some, _every,
 
-    // 축약하기
-    _reduce, _max, _min, _max_by, _min_by, _group_by
+    // 접기(축약하기)
+    _reduce, _max, _min, _max_by, _min_by, _group_by, _count_by
 };
