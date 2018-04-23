@@ -27,6 +27,7 @@ var _curryr = fn =>
 function _get(obj, key) {
     return obj == null ? undefined : obj[key];
 }
+var _get = _curryr(_get);
 
 var _length = _get('length');
 
@@ -170,11 +171,14 @@ function _max_by(list, iter) {
 }
 var _max_by = _curryr(_max_by);
 
+function _push(obj, key, val) {
+    (obj[key] = obj[key] || []).push(val);
+    return obj;
+}
+
 function _group_by(data, iter) {
     return _reduce(data, function (grouped, obj) {
-        var key = iter(obj);
-        (grouped[key] = grouped[key] || []).push(obj);
-        return grouped;
+        return _push(grouped, iter(obj), obj);
     }, {});
 }
 var _group_by = _curryr(_group_by);
