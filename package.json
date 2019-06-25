@@ -1,0 +1,23 @@
+{
+  "name": "functional-javascript",
+  "version": "1.0.0",
+  "description": "인프런 강의사이트의 \"자바스크립트로 알아보는 함수형 프로그래밍\" 강의를 보며 실습한 내용을 정리함.",
+  "main": "lib.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shibas11/functional-javascript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shibas11/functional-javascript/issues"
+  },
+  "homepage": "https://github.com/shibas11/functional-javascript#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
